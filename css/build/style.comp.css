@@ -326,9 +326,39 @@ h3 {
 .header {
   position: relative;
   width: 100%;
-  height: auto;
+  height: 55vw;
+  min-height: 600px;
   margin: 0 auto;
-  overflow: hidden; }
+  overflow-y: visible; }
+  @media (max-width: 37.5em) {
+    .header {
+      height: 120vw; } }
+  .header__tk-hero-asset {
+    position: absolute;
+    right: 64px;
+    top: 52px;
+    width: 50vw;
+    height: 50vw;
+    min-height: 500px;
+    min-width: 500px;
+    border-radius: 50%;
+    background-color: #4D4D4D;
+    z-index: -1;
+    text-align: center;
+    line-height: 50vw;
+    vertical-align: middle; }
+    @media (max-width: 37.5em) {
+      .header__tk-hero-asset {
+        width: 90vw;
+        height: 90vw;
+        min-height: unset;
+        min-width: unset;
+        left: 5vw;
+        top: 45%; } }
+    .header__tk-hero-asset p {
+      font-family: "GT-America", sans-serif;
+      font-size: 3rem;
+      color: #313030; }
   .header__container {
     width: 88%;
     margin: 0 6%; }
@@ -483,6 +513,7 @@ h3 {
     position: relative;
     height: auto;
     margin: 0px 2.5%;
+    margin-bottom: 5px;
     color: #333232;
     font-family: "GT-America", sans-serif;
     font-size: 1.6rem;
@@ -499,15 +530,7 @@ h3 {
       height: 100%;
       text-decoration: none;
       text-align: center;
-      line-height: 3.4rem;
-      vertical-align: middle;
       transition: all .3; }
-    .main-nav li a:link,
-    .main-nav li a:visited {
-      color: #333232; }
-    .main-nav li a:hover,
-    .main-nav li a:active {
-      color: white; }
     @media (max-width: 37.5em) {
       .main-nav li {
         width: 100%;
@@ -516,7 +539,14 @@ h3 {
         margin: 0;
         height: 60px;
         line-height: 60px;
-        vertical-align: middle; } }
+        vertical-align: middle;
+        margin-bottom: 0; } }
+    .main-nav li a:link,
+    .main-nav li a:visited {
+      color: #333232; }
+    .main-nav li a:hover,
+    .main-nav li a:active {
+      color: white; }
 
 .sticky {
   display: block;
@@ -569,7 +599,8 @@ h3 {
 
 .sec-nav {
   width: 88%;
-  margin: 260px 6% 0 6%; }
+  margin: 0 6%;
+  margin-bottom: 100px; }
   .sec-nav__title {
     font-family: "GT-America", sans-serif;
     font-weight: lighter;

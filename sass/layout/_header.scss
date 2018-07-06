@@ -1,14 +1,58 @@
 .header {
   position: relative;
   width: 100%;
-  height: auto;
+  //height: auto;
+  //height: calc(50vw + 100px);
+  height: 55vw;
+  min-height: 600px;
   margin: 0 auto;
-  overflow: hidden;
+  //overflow-x: hidden;
+  overflow-y: visible;
+  //overflow: hidden;
+  //margin-bottom: 12%;
+
   //background-color: $bg-color-white;
 
 
   @include respond(phone) {
+    height: 120vw;
   }
+
+  &__tk-hero-asset {
+    position: absolute;
+    right: 64px;
+    //top: -52px;
+    top: 52px;
+    //margin-top: 52px;
+    width: 50vw;
+    height: 50vw;
+    min-height: 500px;
+    min-width: 500px;
+    border-radius: 50%;
+    background-color: $color-grey-2;
+    z-index: -1;
+    text-align: center;
+    line-height: 50vw;
+    vertical-align: middle;
+
+    @include respond(phone) {
+      width: 90vw;
+      height: 90vw;
+      min-height: unset;
+      min-width: unset;
+
+      left: 5vw;
+      top: 45%;
+    }
+
+    p {
+      font-family: "GT-America", sans-serif;
+      font-size: 3rem;
+      color: #313030;
+    }
+  }
+
+
 
   &__container {
     //width: calc(100vw - 2* #{$body-padding});
