@@ -82,7 +82,7 @@ module.exports = {
       excludeChunks: [ 'onLoad' ]
     }),
     new CopyWebpackPlugin([
-      { from: './php/', to: './php/' },
+      /* { from: './php/', to: './php/' }, */
       { from: './img/', to: './img/' },
       { from: './css/vendor/', to: './css/vendor/' },
       { from: './js/vendor/', to: './js/vendor/' }
