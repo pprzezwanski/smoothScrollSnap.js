@@ -1,0 +1,96 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+*:focus {
+  outline: none;
+}
+
+/* Webkit / Chrome Specific CSS to remove tap
+highlight color */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Firefox Specific CSS to removedifferences and focus ring */
+*::-moz-focus-inner {
+  border: 0;
+}
+
+html {
+  user-select: none;
+  // This defines what 1rem is
+  font-size: 62.5%; //1 rem = 10px, 10px/16px = 62.5%
+
+  @include respond(tab-port) {
+    // font-size: 56%;  // 1 rem = 8px, 8/16 = 50%
+  }
+
+  @include respond(phone) {
+    // font-size: 56%;
+  }
+}
+
+body {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  background-color: $color-grey-1;
+  font-weight: 400;
+  text-rendering: optimizeLegibility !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  width: 100vw;
+  min-width: 100vw;
+  overflow-x: hidden;
+  height: 100%;
+}
+
+.clearfix {
+  zoom: 1;
+}
+.clearfix:after {
+  content: "";
+  clear: both;
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+
+section {
+  padding: 70px 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.row-full {
+  position: relative;
+  //left: -$body-padding;
+  width: 100vw;
+}
+
+/* ::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: #341f97;
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(74, 0, 127, 0.31);
+} */

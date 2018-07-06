@@ -1,0 +1,109 @@
+@keyframes moveInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(15%);
+    }
+    
+    80% {
+        transform: translateX(-3%);
+    }
+       
+    100% {
+        opacity: 1;
+        transform: translateX(-0%);
+    } 
+}
+
+@keyframes moveInBottom {
+    0% { opacity: 0; transform: translateY(100%); }
+    100% { opacity: 1; transform: translateY(0);
+    } 
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.animation-fade-in {
+    -webkit-animation-name: fade-in;
+    animation-name: fade-in;
+}
+
+@keyframes fade-in-left {
+    from {
+        opacity: 0;
+        -webkit-transform: translateX(-2000px);
+        transform: translateX(-2000px);
+    }
+  
+    to {
+      opacity: 1;
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+    }
+  }
+  
+  .animation-fade-in-left {
+    -webkit-animation-name: fade-in-left;
+    animation-name: fade-in-left;
+  }
+
+@keyframes fade-in-right {
+    from {
+        opacity: 0;
+        -webkit-transform: translateX(2000px);
+        transform: translateX(2000px);
+    }
+  
+    to {
+        opacity: 1;
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+  }
+  
+  .animation-fade-in-right {
+    -webkit-animation-name: fade-in-right;
+    animation-name: fade-in-right;
+  }
+
+/* ANIMATIONS */
+.js--news-content,
+.js--catalog,
+.js--viewer,
+.js--catalog-screen,
+.js--viewer-screen {
+    opacity: 0;
+    animation-fill-mode: both;
+}
+
+.js--catalog,
+.js--viewer,
+.js--catalog-screen,
+.js--viewer-screen {
+
+    @include respond(phone) {
+        opacity: 1;
+    }
+}
+
+.js--news-content {
+    animation-duration: 1.5s;
+}
+
+.js--catalog {
+    animation-duration: 1.5s;
+}
+
+.js--viewer {
+    animation-duration: 1.5s;
+}
+
+.js--catalog-screen {
+    animation-duration: 1.5s;
+}
+
+.js--viewer-screen {
+    animation-duration: 1.5s;
+}

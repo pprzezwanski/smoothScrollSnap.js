@@ -1,0 +1,104 @@
+.sec-nav {
+  
+    //margin-top: 260px;
+    width: 88%;
+    margin: 260px 6% 0 6%;
+    
+    &__title {
+      font-family: "GT-America", sans-serif;
+      font-weight: lighter;
+      font-size: 3.6rem;
+      margin-bottom: 40px;
+      //border-bottom: 3px solid red;
+      color: $color-grey-4;
+
+      @include respond(phone) {
+        font-size: 3rem;
+      }
+    }
+
+    &__gradient-line {
+      height: 3px;
+      width: 100%;
+      background-image: linear-gradient(to right, $color-red, $color-pink);
+      color: white;
+    }
+
+    &__container {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      color: $color-grey-4;
+      font-family: "GT-America", sans-serif;
+      font-size: 18px;
+
+      @include respond(phone) {
+        flex-flow: column nowrap;
+        width: 90%;
+      }
+    }
+
+    &__ul {
+      display: flex;
+      flex-flow: row nowrap;
+      //align-content: flex-start;
+      justify-content: flex-start;
+      margin: 0;
+      //margin-top: 9px;
+      width: 80%;
+      list-style: none;
+      text-decoration: none;
+
+      @include respond(phone) {
+        flex-flow: column nowrap; 
+      }
+      
+      li {
+        color: $color-grey-4;
+        margin-bottom: 15px;
+        border-top: 9px solid transparent;
+        transition: all .2s;
+        margin-right: 40px;
+
+        &:hover {
+          border-top: 9px solid $color-red;
+        }
+
+
+        a {
+          //padding: 0;
+          width: 100%;
+          height: 30px;
+          margin: 0;
+          //margin-top: 9px;
+          
+          color: $color-grey-4;
+          transition: all .2s;
+
+          &:hover {
+            color: white;
+          }
+
+        }
+      }  
+    }
+
+    &__last-item {
+
+      margin-top: 9px;
+      
+      a {
+        height: 30px;
+        border-top: 9px solid transparent;
+        margin: 0;
+        color: $color-grey-4;
+
+        &:hover {
+          color: white;
+          border-top: 9px solid $color-pink;
+        }
+      }
+
+    }
+  }

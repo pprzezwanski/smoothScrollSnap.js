@@ -1,0 +1,60 @@
+{
+  "name": "nikolet_burzynska_website",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "watch:sass": "node-sass sass/main.scss css/style.css -w",
+    "compile:sass": "node-sass sass/main.scss css/build/style.comp.css",
+    "concat:css": "concat -o css/build/style.concat.css css/build/style.comp.css",
+    "prefix:css": "postcss css/build/style.concat.css --use autoprefixer -o css/build/style.prefix.css",
+    "compress:css": "node-sass css/build/style.prefix.css dist/css/style.css --output-style compressed",
+    "build:css": "npm-run-all compile:sass concat:css prefix:css compress:css",
+    "dev-server": "webpack-dev-server --config webpack.dev.js --open --hot",
+    "build:js": "webpack --config webpack.prod.js",
+    "start": "npm-run-all --parallel dev-server watch:sass",
+    "build": "npm-run-all --parallel build:js build:css"
+  },
+  "keywords": [
+    "nikolet",
+    "ftcp"
+  ],
+  "author": "Pawel Przezwanski",
+  "license": "UNLICENSED",
+  "description": "a website with an awesome app -  Filtered Tagged Catalog Player ",
+  "devDependencies": {
+    "autoprefixer": "^8.2.0",
+    "babel-cli": "latest",
+    "babel-core": "latest",
+    "babel-loader": "latest",
+    "babel-polyfill": "latest",
+    "babel-preset-env": "latest",
+    "browser-sync-webpack-plugin": "^2.2.2",
+    "clean-webpack-plugin": "^0.1.19",
+    "concat": "latest",
+    "copy-webpack-plugin": "^4.5.1",
+    "css-loader": "^0.28.11",
+    "file-loader": "^1.1.11",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "imagemin-cli": "latest",
+    "mini-css-extract-plugin": "^0.4.0",
+    "mysql": "latest",
+    "node-sass": "^4.9.0",
+    "npm-run-all": "latest",
+    "postcss-cli": "latest",
+    "postcss-loader": "^2.1.3",
+    "resolve-url-loader": "latest",
+    "sass-loader": "^6.0.7",
+    "standard": "^11.0.1",
+    "style-loader": "^0.20.3",
+    "webpack": "^4.12.0",
+    "webpack-cli": "^2.0.13",
+    "webpack-dev-server": "latest"
+  },
+  "dependencies": {
+    "browser-sync": "^2.24.4",
+    "hammerjs": "^2.0.8",
+    "jquery": "^3.3.1",
+    "waypoints": "^4.0.1"
+  }
+}

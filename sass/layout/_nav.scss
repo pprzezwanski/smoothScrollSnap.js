@@ -1,0 +1,230 @@
+.primary-nav {
+    width: 100%;
+    //width: calc(100vw - 2 * 85px);
+    margin: 0;
+    padding: 0 6vw;
+    height: 90px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+
+    @include respond(phone) {
+      flex-flow: column nowrap;
+      height: auto;
+      //justify-content: flex-start;
+      align-items: flex-start;  
+      padding: 0;
+    }
+  }
+  
+  .logo {
+    position: relative;
+    width: 163px;
+    height: 1em;
+    //margin-left: 85px;
+    font-size: 3.3rem;
+
+    @include respond(phone) {
+      padding: $mobile-nav-item-gap 36px;
+      border-bottom: solid 2px $color-warm-grey-light;
+      width: 100%;
+      height: 74px;
+      //height: 200px;
+      //justify-content: center;
+      //align-items: center;
+      line-height: 100%;
+      vertical-align: middle;
+    }
+  
+    &__text {
+      font-family: "GT-America", sans-serif;
+      font-weight: bold;
+      font-size: 3.3rem;
+      background: -webkit-linear-gradient($color-red, $color-pink);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      padding: 0;
+      line-height: 1em;
+      vertical-align: middle;
+    }
+  
+    &__detail {
+      position: absolute;
+      //top: 35%;
+      top: 11.6px;
+      left: 1.45%;
+      width: .2em;
+      height: .1em;
+      background-color: white;
+      //z-index: 99;
+
+      @include respond(phone) {
+        top: calc( 11px + #{$mobile-nav-item-gap});
+        left: calc( .6% + 36px );
+      }
+    }
+
+  }
+  
+  .main-nav {
+    display: flex;
+    flex-flow: row wrap;
+    align-content: flex-end;
+    justify-content: flex-end;
+    margin: 0;
+    width: 80%;
+    list-style: none;
+    background-color: white;
+    text-decoration: none;
+
+    @include respond(phone) {
+      flex-flow: column nowrap;
+      height: auto;
+      //text-align: left;
+      justify-content: flex-start;
+      width: 100%;
+    }
+  
+    li {
+      //display: inline-block;
+      //vertical-align: middle;
+      //line-height: 100%;
+      position: relative;
+      height: auto;
+      margin: 0px 2.5%;
+      //margin: 0px 2%;
+      //padding: 5px 10px;
+      //padding: 0px 10px;
+      
+      color: $color-grey-1;
+      font-family: "GT-America", sans-serif;
+      font-size: 1.6rem;
+      text-align: center;
+      //height: 3.4rem;
+      //line-height: 3.4rem;
+      //vertical-align: middle;
+  
+      /* @include respond(phone) {
+        display: block;
+      } */
+
+      //padding: 0;
+  
+      color: $color-grey-1;
+      text-decoration: none;
+
+      &:hover {
+        background-image: linear-gradient(to right, $color-red, $color-pink);
+        //color: white;
+      }
+
+      a {
+        display: block;
+        //position:absolute;
+        //left: -5%;
+        height: 100%;
+        //width: 110%;
+        text-decoration: none; 
+        text-align: center;
+        line-height: 3.4rem;
+        vertical-align: middle;
+        transition: all .3;
+      }
+  
+      a:link,
+      a:visited {
+        //height: 4.4rem;
+        color: $color-grey-1;
+       
+      }
+
+      a:hover,
+      a:active {
+        color: white;
+      }
+
+      
+
+      @include respond(phone) {
+        //padding: $mobile-nav-item-gap 10%;
+        width: 100%;
+        padding: 0 10%;
+        border-bottom: solid 1px $color-warm-grey-light;
+        margin: 0;
+        height: $mobile-nav-item-height;
+        line-height: $mobile-nav-item-height;
+        vertical-align: middle;
+      }
+    }
+  }
+  
+  .sticky {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    box-shadow: 0 2px 2px #efefef;
+    z-index: 9999;
+  }
+  
+  .sticky .main-nav {
+    margin-top: 5px;
+  
+    @include respond(phone) {
+      margin-top: 0px;
+    }
+  
+    li a:link,
+    li a:visited {
+      @include respond(phone) {
+        padding: 10px 0;
+      }
+    }
+  }
+  
+  .sticky .mobile-nav-icon {
+    i {
+      //color: lighten($color-primary, 50%);
+    }
+  }
+  
+  .mobile-nav-icon {
+    display: none;
+    cursor: pointer;
+    position: absolute;
+    right: 0%;
+    top: 0%;
+    width: 74px;
+    height: 74px;
+    padding-left: 10px;
+    //background-color: pink;
+  
+    @include respond(phone) {
+      display: block;
+    }
+  }
+  
+  .mobile-nav-icon i {
+    color: #a8a8a8;
+    //background-color: red;
+    width: 150px !important;
+    height: 74px;
+    font-size: 3.5rem;
+    border: 1px solid $color-warm-grey-light;
+    border-radius: 13px;
+    padding: 0 18%;
+    
+    z-index: 99;
+    line-height: 74px;
+    vertical-align: middle;
+    font-style: normal;
+  }
+  
+  .sticky .mobile-nav-icon {
+    @include respond(phone) {
+      display: inline-block;
+    }
+  }
