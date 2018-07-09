@@ -175,7 +175,6 @@ html {
 body {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  background-color: #333232;
   font-weight: 400;
   text-rendering: optimizeLegibility !important;
   -webkit-font-smoothing: antialiased !important;
@@ -201,6 +200,10 @@ section {
 a {
   text-decoration: none; }
 
+/* p {
+  margin:0;
+  padding: 0;
+} */
 .row-full {
   position: relative;
   width: 100vw; }
@@ -287,10 +290,8 @@ h3 {
   text-align: center;
 } */
 .row {
-  max-width: 140rem;
+  max-width: 127rem;
   margin: 0 auto; }
-  .row:not(:last-child) {
-    margin-bottom: 0rem; }
   @media (max-width: 37.5em) {
     .row {
       max-width: 90%; } }
@@ -326,27 +327,28 @@ h3 {
 .header {
   position: relative;
   width: 100%;
-  height: 55vw;
+  height: calc(127rem * 55 / 100);
   min-height: 600px;
   margin: 0 auto;
-  overflow-y: visible; }
-  @media (max-width: 37.5em) {
-    .header {
-      height: 120vw; } }
+  padding-top: 11.5vw;
+  overflow-y: visible;
+  z-index: -2;
+  background-color: #333232; }
   .header__tk-hero-asset {
     position: absolute;
     right: 64px;
     top: 52px;
-    width: 50vw;
-    height: 50vw;
+    width: calc(127rem / 2);
+    height: calc(127rem / 2);
     min-height: 500px;
     min-width: 500px;
     border-radius: 50%;
     background-color: #4D4D4D;
     z-index: -1;
-    text-align: center;
-    line-height: 50vw;
-    vertical-align: middle; }
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    text-align: center; }
     @media (max-width: 37.5em) {
       .header__tk-hero-asset {
         width: 90vw;
@@ -359,9 +361,9 @@ h3 {
       font-family: "GT-America", sans-serif;
       font-size: 3rem;
       color: #313030; }
-  .header__container {
+  .header__content {
     width: 88%;
-    margin: 0 6%; }
+    margin: 0 auto; }
   .header__h1 {
     display: block;
     width: 60%;
@@ -369,7 +371,6 @@ h3 {
     height: auto;
     color: #ffffff;
     margin: 0;
-    margin-top: 11.5vw;
     margin-right: 40%;
     font-family: "GT-America", sans-serif;
     font-size: 8rem;
@@ -443,7 +444,8 @@ h3 {
 
 .primary-nav {
   width: 100%;
-  margin: 0;
+  max-width: 127rem;
+  margin: 0 auto;
   padding: 0 6vw;
   height: 90px;
   display: flex;
@@ -453,9 +455,10 @@ h3 {
   background-color: white; }
   @media (max-width: 37.5em) {
     .primary-nav {
+      position: fixed;
       flex-flow: column nowrap;
       height: auto;
-      align-items: flex-start;
+      align-items: center;
       padding: 0; } }
 
 .logo {
@@ -465,12 +468,13 @@ h3 {
   font-size: 3.3rem; }
   @media (max-width: 37.5em) {
     .logo {
-      padding: 15px 36px;
+      padding: 15px 20px;
       border-bottom: solid 2px #F1EEED;
       width: 100%;
       height: 74px;
-      line-height: 100%;
-      vertical-align: middle; } }
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: center; } }
   .logo__text {
     font-family: "GT-America", sans-serif;
     font-weight: bold;
@@ -490,8 +494,8 @@ h3 {
     background-color: white; }
     @media (max-width: 37.5em) {
       .logo__detail {
-        top: calc( 11px + 15px);
-        left: calc( .6% + 36px); } }
+        top: calc( 22% + 15px);
+        left: calc( .6% + 20px); } }
 
 .main-nav {
   display: flex;
@@ -512,40 +516,38 @@ h3 {
   .main-nav li {
     position: relative;
     height: auto;
-    margin: 0px 2.5%;
-    margin-bottom: 5px;
-    color: #333232;
+    margin: 0px 2%;
     font-family: "GT-America", sans-serif;
     font-size: 1.6rem;
     text-align: center;
-    /* @include respond(phone) {
-        display: block;
-      } */
-    color: #333232;
-    text-decoration: none; }
-    .main-nav li:hover {
-      background-image: linear-gradient(to right, #EF3B3B, #E73E96); }
-    .main-nav li a {
-      display: block;
-      height: 100%;
-      text-decoration: none;
-      text-align: center;
-      transition: all .3; }
+    color: #333232; }
     @media (max-width: 37.5em) {
       .main-nav li {
         width: 100%;
-        padding: 0 10%;
+        padding: 0 20px;
         border-bottom: solid 1px #F1EEED;
         margin: 0;
         height: 60px;
         line-height: 60px;
-        vertical-align: middle;
-        margin-bottom: 0; } }
+        vertical-align: middle; } }
+    .main-nav li a {
+      display: block;
+      padding: 5px 10px;
+      height: 100%;
+      text-decoration: none;
+      text-align: center;
+      transition: all .3; }
     .main-nav li a:link,
     .main-nav li a:visited {
       color: #333232; }
+      @media (max-width: 37.5em) {
+        .main-nav li a:link,
+        .main-nav li a:visited {
+          text-align: left;
+          padding: 0; } }
     .main-nav li a:hover,
     .main-nav li a:active {
+      background-image: linear-gradient(to right, #EF3B3B, #E73E96);
       color: white; }
 
 .sticky {
@@ -571,11 +573,10 @@ h3 {
   display: none;
   cursor: pointer;
   position: absolute;
-  right: 0%;
+  right: 20px;
   top: 0%;
-  width: 74px;
-  height: 74px;
-  padding-left: 10px; }
+  width: 30px;
+  height: 74px; }
   @media (max-width: 37.5em) {
     .mobile-nav-icon {
       display: block; } }
@@ -585,22 +586,21 @@ h3 {
   width: 150px !important;
   height: 74px;
   font-size: 3.5rem;
-  border: 1px solid #F1EEED;
-  border-radius: 13px;
-  padding: 0 18%;
-  z-index: 99;
-  line-height: 74px;
-  vertical-align: middle;
-  font-style: normal; }
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center; }
 
 @media (max-width: 37.5em) {
   .sticky .mobile-nav-icon {
     display: inline-block; } }
 
 .sec-nav {
-  width: 88%;
-  margin: 0 6%;
-  margin-bottom: 100px; }
+  width: 100%;
+  padding-bottom: 100px;
+  background-color: #333232;
+  margin: 0; }
+  .sec-nav__container {
+    padding: 0 6%; }
   .sec-nav__title {
     font-family: "GT-America", sans-serif;
     font-weight: lighter;
@@ -615,7 +615,7 @@ h3 {
     width: 100%;
     background-image: linear-gradient(to right, #EF3B3B, #E73E96);
     color: white; }
-  .sec-nav__container {
+  .sec-nav__list-container {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
@@ -624,7 +624,7 @@ h3 {
     font-family: "GT-America", sans-serif;
     font-size: 18px; }
     @media (max-width: 37.5em) {
-      .sec-nav__container {
+      .sec-nav__list-container {
         flex-flow: column nowrap;
         width: 90%; } }
   .sec-nav__ul {
@@ -669,41 +669,3 @@ h3 {
   width: 200px;
   height: 100px;
   background-color: #761176; }
-
-.section-news {
-  padding-bottom: 0; }
-  .section-news .col-1-of-4,
-  .section-news .col-1-of-3 {
-    padding: 0% 1% 1% 2%;
-    border-left: 1px solid #120b34; }
-    @media (max-width: 37.5em) {
-      .section-news .col-1-of-4,
-      .section-news .col-1-of-3 {
-        border-left: 0; } }
-  .section-news [class^="col-"]:last-child {
-    padding-right: 2%;
-    border-right: 1px solid #06000b; }
-    @media (max-width: 37.5em) {
-      .section-news [class^="col-"]:last-child {
-        border-right: 0; } }
-  .section-news__summary {
-    width: 70%;
-    margin-left: 15%;
-    margin-right: 15%;
-    line-height: 145%;
-    text-align: center;
-    margin-bottom: 45px;
-    font-size: 1.6rem;
-    font-family: "Raleway", sans-serif;
-    font-weight: 500; }
-  .section-news__height {
-    height: auto;
-    overflow: hidden;
-    transition: height 2s; }
-
-.section-cd-showcase {
-  padding: 80px 0px;
-  min-height: 100vh; }
-
-.section-contact {
-  padding: 0; }

@@ -1,9 +1,12 @@
 .sec-nav {
-  
-    //margin-top: 260px;
-    width: 88%;
-    margin: 0 6%;
-    margin-bottom: 100px;
+    width: 100%;
+    padding-bottom: 100px;
+    background-color: $color-grey-1;
+    margin: 0;
+
+    &__container {
+      padding: 0 6%;
+    }
     
     &__title {
       font-family: "GT-America", sans-serif;
@@ -25,7 +28,7 @@
       color: white;
     }
 
-    &__container {
+    &__list-container {
       display: flex;
       flex-flow: row nowrap;
       justify-content: space-between;

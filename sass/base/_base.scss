@@ -38,7 +38,7 @@ html {
 body {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  background-color: $color-grey-1;
+  //background-color: $color-grey-1;
   font-weight: 400;
   text-rendering: optimizeLegibility !important;
   -webkit-font-smoothing: antialiased !important;
@@ -67,6 +67,11 @@ section {
 a {
   text-decoration: none;
 }
+
+/* p {
+  margin:0;
+  padding: 0;
+} */
 
 .row-full {
   position: relative;

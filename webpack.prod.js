@@ -79,7 +79,7 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: "./src/index.html",
       filename: "./index.html",
-      excludeChunks: [ 'onLoad' ]
+      excludeChunks: [ 'onLoad', 'style' ]
     }),
     new CopyWebpackPlugin([
       /* { from: './php/', to: './php/' }, */

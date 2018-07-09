@@ -1,7 +1,7 @@
 .primary-nav {
     width: 100%;
-    //width: calc(100vw - 2 * 85px);
-    margin: 0;
+    max-width: $grid-width;
+    margin: 0 auto;
     padding: 0 6vw;
     height: 90px;
     display: flex;
@@ -9,12 +9,13 @@
     justify-content: space-between;
     align-items: center;
     background-color: white;
+    //margin: 0;
 
     @include respond(phone) {
+      position: fixed;
       flex-flow: column nowrap;
       height: auto;
-      //justify-content: flex-start;
-      align-items: flex-start;  
+      align-items: center;  
       padding: 0;
     }
   }
@@ -23,19 +24,16 @@
     position: relative;
     width: 163px;
     height: 1em;
-    //margin-left: 85px;
     font-size: 3.3rem;
 
     @include respond(phone) {
-      padding: $mobile-nav-item-gap 36px;
+      padding: $mobile-nav-item-gap 20px;
       border-bottom: solid 2px $color-warm-grey-light;
       width: 100%;
       height: 74px;
-      //height: 200px;
-      //justify-content: center;
-      //align-items: center;
-      line-height: 100%;
-      vertical-align: middle;
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: center;
     }
   
     &__text {
@@ -52,20 +50,17 @@
   
     &__detail {
       position: absolute;
-      //top: 35%;
       top: 11.6px;
       left: 1.45%;
       width: .2em;
       height: .1em;
       background-color: white;
-      //z-index: 99;
 
       @include respond(phone) {
-        top: calc( 11px + #{$mobile-nav-item-gap});
-        left: calc( .6% + 36px );
+        top: calc( 22% + #{$mobile-nav-item-gap});
+        left: calc( .6% + 20px );
       }
     }
-
   }
   
   .main-nav {
@@ -88,71 +83,51 @@
     }
   
     li {
-      //display: inline-block;
-      //vertical-align: middle;
-      //line-height: 100%;
       position: relative;
       height: auto;
-      margin: 0px 2.5%;
-      margin-bottom: 5px;
-      //margin: 0px 2%;
-      //padding: 5px 10px;
-      //padding: 0px 10px;
-      
-      color: $color-grey-1;
+      margin: 0px 2%;
       font-family: "GT-America", sans-serif;
       font-size: 1.6rem;
       text-align: center;
-      //height: 3.4rem;
-      //line-height: 3.4rem;
-      //vertical-align: middle;
-  
-      /* @include respond(phone) {
-        display: block;
-      } */
-
-      //padding: 0;
-  
       color: $color-grey-1;
-      text-decoration: none;
 
-      &:hover {
-        background-image: linear-gradient(to right, $color-red, $color-pink);
-        //color: white;
+      @include respond(phone) {
+        width: 100%;
+        padding: 0 20px;
+        border-bottom: solid 1px $color-warm-grey-light;
+        margin: 0;
+        height: $mobile-nav-item-height;
+        line-height: $mobile-nav-item-height;
+        vertical-align: middle; 
       }
 
       a {
-        display: block;
+        display: block; 
+        padding: 5px 10px;
         height: 100%;
         text-decoration: none; 
         text-align: center;
         transition: all .3;
       }
 
-      @include respond(phone) {
-        width: 100%;
-        padding: 0 10%;
-        border-bottom: solid 1px $color-warm-grey-light;
-        margin: 0;
-        height: $mobile-nav-item-height;
-        line-height: $mobile-nav-item-height;
-        vertical-align: middle;
-        margin-bottom: 0;
-      }
+      
   
       a:link,
       a:visited {
-        //height: 4.4rem;
         color: $color-grey-1;
-       
+
+       @include respond(phone) {
+        text-align: left;
+        padding: 0;
+       }
+
       }
 
       a:hover,
       a:active {
+        background-image: linear-gradient(to right, $color-red, $color-pink);
         color: white;
       }
-
-     
     }
   }
   
@@ -191,12 +166,11 @@
     display: none;
     cursor: pointer;
     position: absolute;
-    right: 0%;
+    right: 20px;
     top: 0%;
-    width: 74px;
+    width: 30px;
     height: 74px;
-    padding-left: 10px;
-    //background-color: pink;
+    //padding-left: 10px;
   
     @include respond(phone) {
       display: block;
@@ -205,18 +179,14 @@
   
   .mobile-nav-icon i {
     color: #a8a8a8;
-    //background-color: red;
     width: 150px !important;
     height: 74px;
     font-size: 3.5rem;
-    border: 1px solid $color-warm-grey-light;
-    border-radius: 13px;
-    padding: 0 18%;
-    
-    z-index: 99;
-    line-height: 74px;
-    vertical-align: middle;
-    font-style: normal;
+    //padding: 0 18%;
+    //z-index: 99;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
   }
   
   .sticky .mobile-nav-icon {

@@ -18,6 +18,7 @@ import { onWindowChange } from './helpers'
 //import { ftcpApp } from './ftcpApp'
 
 import "./../css/style.css"
+import "./../css/vendor/ionicons.css"
 
 //onWindowChange(fullVhFix)
 
