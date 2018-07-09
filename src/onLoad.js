@@ -1,7 +1,7 @@
 /**
  * set fallbacks for older systems and devices
  */
-const headerFallbacks = (() => {
+/* const headerFallbacks = (() => {
     const initFullViewHieght = (() => {
         const viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
         document.querySelector('.header').style.height = `${viewportHeight}px`
@@ -14,4 +14,4 @@ const headerFallbacks = (() => {
             document.querySelector('.header__heading').style.left = '6%'
         }
     })()  
-})()
+})() */
