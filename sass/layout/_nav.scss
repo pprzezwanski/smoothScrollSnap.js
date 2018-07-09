@@ -9,7 +9,6 @@
     justify-content: space-between;
     align-items: center;
     background-color: white;
-    //margin: 0;
 
     @include respond(phone) {
       position: fixed;
@@ -40,7 +39,7 @@
       font-family: "GT-America", sans-serif;
       font-weight: bold;
       font-size: 3.3rem;
-      background: -webkit-linear-gradient($color-red, $color-pink);
+      background: linear-gradient(to right, $color-red, $color-pink);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       padding: 0;
@@ -77,7 +76,6 @@
     @include respond(phone) {
       flex-flow: column nowrap;
       height: auto;
-      //text-align: left;
       justify-content: flex-start;
       width: 100%;
     }
@@ -170,7 +168,6 @@
     top: 0%;
     width: 30px;
     height: 74px;
-    //padding-left: 10px;
   
     @include respond(phone) {
       display: block;
@@ -182,8 +179,6 @@
     width: 150px !important;
     height: 74px;
     font-size: 3.5rem;
-    //padding: 0 18%;
-    //z-index: 99;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;

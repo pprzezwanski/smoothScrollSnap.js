@@ -384,32 +384,25 @@ h3 {
         min-width: unset;
         width: 90%; } }
     .header__h1 span {
-      display: relative;
-      /* border-color: $color-red;
-      -webkit-border-image: -webkit-gradient(linear, 0 0, 0 100%, from($color-red), to($color-pink)) 1 100%;
-      -webkit-border-image: -webkit-linear-gradient($color-red, $color-pink) 1 100%;
-      -moz-border-image: -moz-linear-gradient($color-red, $color-pink) 1 100%;    
-      -o-border-image:-o-linear-gradient($color-red, $color-pink) 1 100%; */
-      /* -webkit-border-image: 
-        -webkit-gradient(linear, 0 100%, 0 0, from($color-red), to($color-pink)) 1 100%;
-      -webkit-border-image: 
-        -webkit-linear-gradient(to right, $color-red, $color-pink) 1 100%;
-      -moz-border-image:
-        -moz-linear-gradient(to right, $color-red, $color-pink) 1 100%; */
-      border-bottom: 3px solid #EF3B3B;
-      /*  &::after {
-        content: '';
-        //display: block;
+      position: relative;
+      border-color: #EF3B3B;
+      /* ::after {
+        content: " ";
+        display: block;
         position: absolute;
-        top: 0;
+        bottom: 0%;
+        right: 0%;
+        width: 200px;
         height: 3px;
-        left: 0;
-        right: 0;
-        //height: 30px;
         background-image: linear-gradient(to right, $color-red, $color-pink);
-        //width: 100%;
-        //z-index: 9;
       } */ }
+      .header__h1 span span {
+        position: absolute;
+        bottom: 0%;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background-image: linear-gradient(to right, #EF3B3B, #E73E96); }
   .header__h2 {
     width: 28%;
     width: 35%;
@@ -479,7 +472,7 @@ h3 {
     font-family: "GT-America", sans-serif;
     font-weight: bold;
     font-size: 3.3rem;
-    background: -webkit-linear-gradient(#EF3B3B, #E73E96);
+    background: linear-gradient(to right, #EF3B3B, #E73E96);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     padding: 0;
