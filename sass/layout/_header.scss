@@ -6,11 +6,15 @@
   margin: 0 auto;
   padding-top: 11.5vw;
   overflow-y: visible;
-  z-index: -2;
+  z-index: 2;
   background-color: $color-grey-1;
+  //background: linear-gradient(rgb(135, 135, 135), rgb(0, 0, 0));
   
-  @include respond(phone) {
+  @include respond(phone) {}
 
+  &__container {
+    width: 88%;
+    margin: 0 auto;
   }
 
   &__tk-hero-asset {
@@ -46,8 +50,7 @@
   }
 
   &__content {
-    width: 88%;
-    margin: 0 auto;
+    
   }
 
   &__h1 {
@@ -97,7 +100,6 @@
     }
   }
 
-
   &__h2 {
     width: 28%;
     width: 35%;
@@ -119,22 +121,13 @@
     }
   }
 
-  &__button {
-    display: inline-block;
-    height: 50px;
-    background-image: linear-gradient(to right, $color-red, $color-pink);
-    color: white;
-    font-family: "GT-America", sans-serif;
+  &__btn {
     font-size: 1.8rem;
-    margin: 0;
     margin-top: 26px;
-    padding: 12px 15px;
-    line-height: 26px;
 
     @include respond(phone) {
       margin-top: 45px;
     }
   }
 }
-
   

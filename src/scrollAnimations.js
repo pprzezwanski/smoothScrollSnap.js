@@ -1,11 +1,12 @@
 import { dom } from './dom'
 import { breakpointPhone } from './config'
-import { qs, scrollTo, isMobile } from './helpers'
+import { qs, scrollTo, isMobile } from './ftcp/ftcpHelpers'
 
 /**
 * sets animations on scroll
 */
 export const scrollAnimations = () => {
+
   // NEWS
   new Waypoint({ // eslint-disable-line
     element: document.querySelector('.js--section-news'),
