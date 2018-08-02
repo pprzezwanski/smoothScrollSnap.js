@@ -168,13 +168,13 @@ a {
   .row .col-1-of-3 {
     width: calc((100% - 2 * 1.5rem) / 3); }
   .row .col-2-of-3 {
-    width: calc( 2 * ((100% - 2 * 1.5rem) / 3) + 1.5rem); }
+    width: calc( 2 * ((100% - 2 * 1.5rem) / 3) + 1.5rem); }
   .row .col-1-of-4 {
     width: calc((100% - 3 * 1.5rem) / 4); }
   .row .col-2-of-4 {
-    width: calc( 2 * ((100% - 3 * 1.5rem) / 4) + 1.5rem); }
+    width: calc( 2 * ((100% - 3 * 1.5rem) / 4) + 1.5rem); }
   .row .col-3-of-4 {
-    width: calc( 3 * ((100% - 3 * 1.5rem) / 4) + 2 * 1.5rem); }
+    width: calc( 3 * ((100% - 3 * 1.5rem) / 4) + 2 * 1.5rem); }
 
 .header {
   position: relative;
