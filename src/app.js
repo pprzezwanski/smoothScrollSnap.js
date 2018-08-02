@@ -14,6 +14,8 @@ import { onWindowChange } from './helpers'
 //import { animations } from './animations'
 
 //import { scrollAnimations } from './scrollAnimations'
+import { smoothScrollSnap } from './smoothScrollSnap'
+import { productGallery } from './productGallery'
 //import { newsApp } from './newsApp'
 //import { ftcpApp } from './ftcpApp'
 
@@ -23,10 +25,13 @@ import "./../css/vendor/ionicons.css"
 //onWindowChange(fullVhFix)
 
 import { stickyNav, mobileNav } from './navigation'
+// import { productsGallery } from './productGallery'
 mobileNav()
 //stickyNav()
 
 //scrollAnimations()
+smoothScrollSnap()
+productGallery(500)
 //newsApp()
 //ftcpApp()
 //animations()
@@ -39,5 +44,3 @@ if (module.hot) { module.hot.accept() }
       nav.slideToggle(200)
     })
   })() */
-
-
