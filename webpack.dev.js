@@ -52,7 +52,7 @@ module.exports = {
       {
           test: /\.(s*)css$/,
           use: [{ loader: "style-loader" }, { loader: "css-loader" }, { loader: "sass-loader" }]
-      }   
+      }
     ]
   },
   plugins: [
@@ -61,16 +61,16 @@ module.exports = {
       filename: "./index.html",
       excludeChunks: [ 'onLoad' ]
     })
-  ],
-  devServer: {
+  ]
+  /* devServer: {
     proxy: {
       '/': {
+        //target: 'http://localhost:8080/',
         target: 'http://localhost:81/Nikolet_Burzynska_com-production/',
-        changeOrigin: true,
-        
+        changeOrigin: true
       }
     }
-  }
+  } */
     
   /* new BrowserSyncPlugin(
   {
