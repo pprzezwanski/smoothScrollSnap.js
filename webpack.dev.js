@@ -62,7 +62,7 @@ module.exports = {
       excludeChunks: [ 'onLoad' ]
     })
   ],
-  devServer: {
+  /* devServer: {
     proxy: {
       '/': {
         target: 'http://localhost:81/Nikolet_Burzynska_com-production/',
@@ -70,7 +70,7 @@ module.exports = {
         
       }
     }
-  }
+  } */
     
   /* new BrowserSyncPlugin(
   {
