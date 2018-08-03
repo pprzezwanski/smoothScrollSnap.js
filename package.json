@@ -1,5 +1,5 @@
 {
-  "name": "nikolet_burzynska_website",
+  "name": "feedvisor",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -39,7 +39,7 @@
     "imagemin-cli": "latest",
     "mini-css-extract-plugin": "^0.4.0",
     "mysql": "latest",
-    "node-sass": "^4.9.0",
+    "node-sass": "^4.9.2",
     "npm-run-all": "latest",
     "postcss-cli": "latest",
     "postcss-loader": "^2.1.3",
@@ -52,9 +52,17 @@
     "webpack-dev-server": "latest"
   },
   "dependencies": {
-    "browser-sync": "^2.24.4",
+    "browser-sync": "^2.24.5",
     "hammerjs": "^2.0.8",
     "jquery": "^3.3.1",
     "waypoints": "^4.0.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raonone/task.git"
+  },
+  "bugs": {
+    "url": "https://github.com/raonone/task/issues"
+  },
+  "homepage": "https://github.com/raonone/task#readme"
 }
