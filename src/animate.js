@@ -54,12 +54,11 @@ export const animate = (
   })
 }
 
-export const animateV = (
-  callback,
-  duration = 1000,
-  timing1 = timings.power(2),
-  timing2 = timings.power(4)
-) => {
+export const animateV = (callback, options) => {
+  const duration = options.duration || 1000
+  const timing1 = options.timing1 || timings.power(2)
+  const timing2 = options.timing2 || timings.power(4)
+
   let start = performance.now()
   requestAnimationFrame(function anim (timestamp) {
     let timeFraction = (timestamp - start) / duration
@@ -69,5 +68,8 @@ export const animateV = (
       : (2 - timing2(2 * (1 - timeFraction))) / 2
     callback(progress)
     if (timeFraction < 1) requestAnimationFrame(anim)
+    else {
+      if (options.callbackAfter) options.callbackAfter()
+    }
   })
 }
