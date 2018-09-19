@@ -21,6 +21,10 @@ export const smoothScrollSnap = (conf = {
   const alignmentAberration = 5
   let totalScroll = 0
   let timeout
+
+  let blockScroll
+  let previousDeltaY = null
+
   let viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
   let minScroll = 1 / 2 * viewportHeight - 1 / 2 * (viewportHeight / 900 - 1)
 
@@ -98,34 +102,113 @@ export const smoothScrollSnap = (conf = {
     const distance = Math.abs(destination - current)
     animateV(p => {
       window.scrollTo(0, p * (destination - current) + current)
-    },
-    700 + 1000 * distance / 4000)
+    }, {
+      duration: 700 + 1000 * distance / 4000,
+      callbackAfter () {
+        //blockScroll = false
+        //previousDeltaY = null
+      }
+    }
+    /* 700 + 1000 * distance / 4000 */)
   }
 
-  function smoothScroll (distance, callback, duration = 200, power = 4) {
-    const start = window.pageYOffset
-    animateV(p => {
-      window.scrollTo(0, p * distance + start)
-    },
-    700 + 700 * distance / 4000,
-    timings.power(2),
-    timings.power(power))
-    const end = start + distance
-    if (callback) {
-      setTimeout(() => { callback(end) }, duration)
+  // function smoothScroll (distance, callback, duration = 200, power = 4) {
+  //   const start = window.pageYOffset
+  //   animateV(p => {
+  //     window.scrollTo(0, p * distance + start)
+  //   }, {
+  //     duration: 700 + 700 * distance / 4000,
+  //     timing1: timings.power(2),
+  //     timing2: timings.power(power),
+  //     callbackAfter () {
+  //       setTimeout(() => { blockScroll = false }, 500)
+  //       //blockScroll = false
+  //     }
+  //   }
+  //   /* 700 + 700 * distance / 4000,
+  //   timings.power(2),
+  //   timings.power(power) */)
+  //   const end = start + distance
+  //   if (callback) {
+  //     setTimeout(() => { callback(end) }, duration)
+  //   }
+  // }
+
+  /* function isDeltaYConstant (e) {
+    if (previousDeltaY === e.deltaY) return true
+    previousDeltaY = e.deltaY
+  } */
+
+  function isDeltaYAfterMax (e) {
+    //const delta = Math.abs(e.deltaY)
+    
+    /* if (!previousDeltaY) {
+      setTimeout(() => {
+        previousDeltaY = Math.abs(e.deltaY)
+      }, 10)
+      return false
+    } else {
+      if (Math.abs(e.deltaY) <= Math.abs(previousDeltaY)) {
+        previousDeltaY = Math.abs(e.deltaY)
+        return 'yes'
+      } else {
+        previousDeltaY = Math.abs(e.deltaY)
+        return 'no'
+      }
+    } */
+
+    if (previousDeltaY) {
+      if (Math.abs(e.deltaY) <= Math.abs(previousDeltaY)) {
+        //previousDeltaY = Math.abs(e.deltaY)
+        return 'yes'
+      } else {
+        //previousDeltaY = Math.abs(e.deltaY)
+        return 'no'
+      }
     }
+  }
+
+  function unblockScroll (time = 1000) {
+    setTimeout(() => { blockScroll = false }, time)
   }
 
   function scrollCounter (e, callback, interval = 70) {
     e.preventDefault()
-    let total
-    clearTimeout(timeout)
-    totalScroll += e.deltaY
-    timeout = setTimeout(() => {
-      total = totalScroll
-      if (callback) callback(total)
-      totalScroll = 0
-    }, interval)
+    // if (previousDeltaY !== e.deltaY) e.preventDefault()
+    /* appleTimeout = setTimeout(() => {
+      blockScroll = true
+    }, 100) */
+
+    //if (!blockScroll) {
+      /* if (isDeltaYAfterMax(e) === 'yes') {
+        console.log('yes')
+        total = totalScroll
+        if (callback) callback(total)
+        totalScroll = 0
+        blockScroll = true
+        previousDeltaY = e.deltaY
+      } else  */
+    console.log('e.deltaY')
+    console.log(e.deltaY)
+    console.log('previousDeltaY')
+    console.log(previousDeltaY)
+      
+    if (!previousDeltaY || isDeltaYAfterMax(e) === 'no') {
+      let total
+      clearTimeout(timeout)
+      totalScroll += e.deltaY
+      console.log('no')
+      console.log(!previousDeltaY)
+      timeout = setTimeout(() => {
+        total = totalScroll
+        if (callback) callback(total)
+        totalScroll = 0
+        //previousDeltaY = null
+      }, interval)
+    }
+    previousDeltaY = e.deltaY
+
+    //}
   }
 
   function findDirection (e, currentElement) {
@@ -207,6 +290,54 @@ export const smoothScrollSnap = (conf = {
     return (sections[current.index + 1] || sections[sections.length - 1])
   }
 
+  function scrollDescisions (
+    e, scrollAmount,
+    current, closest,
+    previous, next,
+    direction
+  ) {
+    if (e.deltaY > 0 &&
+      !isSectionEndInView(current.element) &&
+      Math.abs(scrollAmount) <= minScroll
+    ) {
+      if (scrollAmount !== e.deltaY) {
+        scrollAmount = direction * minScroll
+      }
+      if (doesScrollGoBeyondHtmlEl(scrollAmount, current.element)) {
+        alignToViewportBottom(current.element)
+      } else {
+        smoothScroll(scrollAmount)
+      }
+    } else if (
+      e.deltaY < 0 &&
+      Math.abs(scrollAmount) <= minScroll
+    ) {
+      if (
+        isSectionStartInView(current.element)
+      ) {
+        if (!isSectionTallerThanViewport(previous)) {
+          alignToViewportTop(previous)
+        } else {
+          alignToViewportBottom(previous)
+        }
+      } else {
+        if (scrollAmount !== e.deltaY) {
+          scrollAmount = direction * minScroll
+        }
+        if (doesScrollGoBeyondElementStart(scrollAmount, current.element)) {
+          alignToViewportTop(current.element)
+        } else {
+          smoothScroll(scrollAmount)
+        }
+      }
+    } else {
+      e.preventDefault()
+      if (!direction) { return false }
+      const target = direction > 0 ? next : previous
+      smoothScrollTo(window.pageYOffset, elementTop(target))
+    }
+  }
+
   function main (e) {  
     if (exclude.find(exc => {
       return e.target.classList.contains(exc.replace('.', ''))
@@ -218,49 +349,23 @@ export const smoothScrollSnap = (conf = {
     const next = nextSection(current, sections)
     const direction = findDirection(e, current.element)
 
+    //if (isDeltaYConstant) {
     scrollCounter(e, scrollAmount => {
-      if (e.deltaY > 0 &&
-        !isSectionEndInView(current.element) &&
-        Math.abs(scrollAmount) <= minScroll
-      ) {
-        if (scrollAmount !== e.deltaY) {
-          scrollAmount = direction * minScroll
-        }
-        if (doesScrollGoBeyondHtmlEl(scrollAmount, current.element)) {
-          alignToViewportBottom(current.element)
-        } else {
-          smoothScroll(scrollAmount)
-        }
-      } else if (
-        e.deltaY < 0 &&
-        Math.abs(scrollAmount) <= minScroll
-      ) {
-        if (
-          isSectionStartInView(current.element)
-        ) {
-          if (!isSectionTallerThanViewport(previous)) {
-            alignToViewportTop(previous)
-          } else {
-            alignToViewportBottom(previous)
-          }
-        } else {
-          if (scrollAmount !== e.deltaY) {
-            scrollAmount = direction * minScroll
-          }
-          if (doesScrollGoBeyondElementStart(scrollAmount, current.element)) {
-            alignToViewportTop(current.element)
-          } else {
-            smoothScroll(scrollAmount)
-          }
-        }
-      } else {
-        e.preventDefault()
-        if (!direction) { return false }
-        const target = direction > 0 ? next : previous
-        smoothScrollTo(window.pageYOffset, elementTop(target))
-      }
+      scrollDescisions(
+        e, scrollAmount,
+        current, closest,
+        previous, next,
+        direction
+      )
     })
-  }
+    //} else {
+
+      /* appleTimeout = setTimeout(() => {
+        appleTimeout = null
+      }, appleWait) */
+    }
+
+  
 
   window.addEventListener('wheel', main)
   window.addEventListener('keydown', (e) => {
