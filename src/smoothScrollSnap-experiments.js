@@ -22,8 +22,13 @@ export const smoothScrollSnap = (conf = {
   let totalScroll = 0
   let timeout
 
-  let blockScroll
   let previousDeltaY = null
+  let previousPreviousDeltaY = null
+
+  let appleScroll = false
+  let appleTotalScroll = 0
+  let appleBlock = false
+  let appleTimeout
 
   let viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
   let minScroll = 1 / 2 * viewportHeight - 1 / 2 * (viewportHeight / 900 - 1)
@@ -103,36 +108,36 @@ export const smoothScrollSnap = (conf = {
     animateV(p => {
       window.scrollTo(0, p * (destination - current) + current)
     }, {
-      duration: 700 + 1000 * distance / 4000,
-      callbackAfter () {
+      duration: 700 + 1000 * distance / 4000
+      /* callbackAfter () {
         //blockScroll = false
         //previousDeltaY = null
-      }
+      } */
     }
     /* 700 + 1000 * distance / 4000 */)
   }
 
-  // function smoothScroll (distance, callback, duration = 200, power = 4) {
-  //   const start = window.pageYOffset
-  //   animateV(p => {
-  //     window.scrollTo(0, p * distance + start)
-  //   }, {
-  //     duration: 700 + 700 * distance / 4000,
-  //     timing1: timings.power(2),
-  //     timing2: timings.power(power),
-  //     callbackAfter () {
-  //       setTimeout(() => { blockScroll = false }, 500)
-  //       //blockScroll = false
-  //     }
-  //   }
-  //   /* 700 + 700 * distance / 4000,
-  //   timings.power(2),
-  //   timings.power(power) */)
-  //   const end = start + distance
-  //   if (callback) {
-  //     setTimeout(() => { callback(end) }, duration)
-  //   }
-  // }
+  function smoothScroll (distance, callback, duration = 200, power = 4) {
+    const start = window.pageYOffset
+    animateV(p => {
+      window.scrollTo(0, p * distance + start)
+    }, {
+      duration: 700 + 700 * distance / 4000,
+      timing1: timings.power(2),
+      timing2: timings.power(power),
+      /* callbackAfter () {
+        setTimeout(() => { blockScroll = false }, 500)
+        //blockScroll = false
+      } */
+    }
+    /* 700 + 700 * distance / 4000,
+    timings.power(2),
+    timings.power(power) */)
+    const end = start + distance
+    if (callback) {
+      setTimeout(() => { callback(end) }, duration)
+    }
+  }
 
   /* function isDeltaYConstant (e) {
     if (previousDeltaY === e.deltaY) return true
@@ -140,74 +145,29 @@ export const smoothScrollSnap = (conf = {
   } */
 
   function isDeltaYAfterMax (e) {
-    //const delta = Math.abs(e.deltaY)
-    
-    /* if (!previousDeltaY) {
-      setTimeout(() => {
-        previousDeltaY = Math.abs(e.deltaY)
-      }, 10)
-      return false
-    } else {
-      if (Math.abs(e.deltaY) <= Math.abs(previousDeltaY)) {
-        previousDeltaY = Math.abs(e.deltaY)
-        return 'yes'
-      } else {
-        previousDeltaY = Math.abs(e.deltaY)
-        return 'no'
-      }
-    } */
-
     if (previousDeltaY) {
-      if (Math.abs(e.deltaY) <= Math.abs(previousDeltaY)) {
-        //previousDeltaY = Math.abs(e.deltaY)
-        return 'yes'
-      } else {
-        //previousDeltaY = Math.abs(e.deltaY)
-        return 'no'
-      }
+      return (
+        (Math.abs(e.deltaY) <= Math.abs(previousDeltaY))
+        && (Math.abs(previousDeltaY) < Math.abs(previousPreviousDeltaY))
+      )
     }
   }
 
-  function unblockScroll (time = 1000) {
+  /* function unblockScroll (time = 1000) {
     setTimeout(() => { blockScroll = false }, time)
-  }
+  } */
 
   function scrollCounter (e, callback, interval = 70) {
     e.preventDefault()
-    // if (previousDeltaY !== e.deltaY) e.preventDefault()
-    /* appleTimeout = setTimeout(() => {
-      blockScroll = true
-    }, 100) */
-
-    //if (!blockScroll) {
-      /* if (isDeltaYAfterMax(e) === 'yes') {
-        console.log('yes')
-        total = totalScroll
-        if (callback) callback(total)
-        totalScroll = 0
-        blockScroll = true
-        previousDeltaY = e.deltaY
-      } else  */
-    console.log('e.deltaY')
-    console.log(e.deltaY)
-    console.log('previousDeltaY')
-    console.log(previousDeltaY)
-      
-    if (!previousDeltaY || isDeltaYAfterMax(e) === 'no') {
-      let total
-      clearTimeout(timeout)
-      totalScroll += e.deltaY
-      console.log('no')
-      console.log(!previousDeltaY)
-      timeout = setTimeout(() => {
-        total = totalScroll
-        if (callback) callback(total)
-        totalScroll = 0
-        //previousDeltaY = null
-      }, interval)
-    }
-    previousDeltaY = e.deltaY
-
+    //if (!previousDeltaY || !isDeltaYAfterMax(e)) {
+    let total
+    clearTimeout(timeout)
+    totalScroll += e.deltaY
+    timeout = setTimeout(() => {
+      total = totalScroll
+      if (callback) callback(total)
+      totalScroll = 0
+    }, interval)
     //}
   }
 
@@ -224,6 +184,8 @@ export const smoothScrollSnap = (conf = {
     }
     return direction
   }
+
+  const hasDirectionChanged = e => previousDeltaY * e.deltaY < 0
 
   function alignToViewportBottom (htmlEl) {
     if (!htmlEl) { throw new Error('falsy input. should be html element') }
@@ -290,12 +252,25 @@ export const smoothScrollSnap = (conf = {
     return (sections[current.index + 1] || sections[sections.length - 1])
   }
 
-  function scrollDescisions (
-    e, scrollAmount,
-    current, closest,
-    previous, next,
-    direction
+  function appleReset () {
+    appleScroll = false
+    previousDeltaY = null
+    previousPreviousDeltaY = null
+    appleBlock = false
+    console.log('APPLE RESET -----------')
+  }
+
+  function scrollDecisions (
+    e, scrollAmount, /* current, closest,
+    previous, next, direction */
   ) {
+
+    const current = currentSection(sections)
+    const closest = closestSection(sections)
+    const previous = previousSection(current, closest).element
+    const next = nextSection(current, sections)
+    const direction = findDirection(e, current.element)
+
     if (e.deltaY > 0 &&
       !isSectionEndInView(current.element) &&
       Math.abs(scrollAmount) <= minScroll
@@ -338,34 +313,69 @@ export const smoothScrollSnap = (conf = {
     }
   }
 
-  function main (e) {  
+  function main (e) {
+    e.preventDefault()
     if (exclude.find(exc => {
       return e.target.classList.contains(exc.replace('.', ''))
     })) { return false }
 
-    const current = currentSection(sections)
+    console.log(`e.deltaY: ${e.deltaY}`)
+    console.log(`previousDeltaY: ${previousDeltaY}`)
+    console.log(`previousPreviousDeltaY: ${previousPreviousDeltaY}`)
+    
+
+    /* const current = currentSection(sections)
     const closest = closestSection(sections)
     const previous = previousSection(current, closest).element
     const next = nextSection(current, sections)
-    const direction = findDirection(e, current.element)
+    const direction = findDirection(e, current.element) */
 
-    //if (isDeltaYConstant) {
-    scrollCounter(e, scrollAmount => {
-      scrollDescisions(
-        e, scrollAmount,
-        current, closest,
-        previous, next,
-        direction
-      )
-    })
-    //} else {
+    if (hasDirectionChanged(e)) appleReset()
 
-      /* appleTimeout = setTimeout(() => {
-        appleTimeout = null
-      }, appleWait) */
+    if (appleScroll && Math.abs(previousDeltaY) > 1 && Math.abs(e.deltaY) === 1) {
+      console.log('DELAYED APPLE RESET')
+      setTimeout(appleReset, 200)
     }
 
-  
+    /* if (
+      appleScroll 
+      && Math.abs(previousDeltaY) < Math.abs(previousPreviousDeltaY)
+      && Math.abs(e.deltaY) > Math.abs(previousDeltaY)
+    ) appleReset() */
+
+    if (Math.abs(e.deltaY) === 1 && !previousDeltaY) {
+      appleScroll = true
+      console.log('APPLE SCROLL')
+    }
+
+
+    clearTimeout(appleTimeout)
+    appleTimeout = setTimeout(appleReset, 300)
+
+    if (appleScroll && !appleBlock) {
+      e.preventDefault()
+      if (!isDeltaYAfterMax(e)) {
+        appleTotalScroll += e.deltaY
+      } else {
+        console.log('AFTER MAX ---------------------')
+        scrollDecisions(e, appleTotalScroll)
+        appleTotalScroll = 0
+        appleBlock = true
+      }
+    }
+
+    
+
+    if (!appleScroll /* || (appleScroll && previousDeltaY && !isDeltaYAfterMax(e)) */) {
+      scrollCounter(e, scrollAmount => {
+        scrollDecisions(e, scrollAmount)
+      })
+    }
+
+    previousPreviousDeltaY = previousDeltaY
+    previousDeltaY = e.deltaY
+    console.log(`--------------`)
+  }
 
   window.addEventListener('wheel', main)
   window.addEventListener('keydown', (e) => {
@@ -375,75 +385,3 @@ export const smoothScrollSnap = (conf = {
     ) { main(e) }
   })
 }
-
-/* scrollCounter(e, scrollAmount => {
-      if (e.deltaY > 0 &&
-        !isSectionEndInView(current.element) &&
-        Math.abs(scrollAmount) <= minScroll
-      ) {
-        if (scrollAmount !== e.deltaY) {
-          scrollAmount = direction * minScroll
-          //scrollAmount = Math.abs(scrollAmount) <= minScroll
-          //  ? direction * minScroll
-          //  : direction * viewportHeight
-        }
-        if (doesScrollGoBeyondHtmlEl(scrollAmount, current.element)) {
-          alignToViewportBottom(current.element)
-        } else {
-          smoothScroll(scrollAmount)
-        }
-      } else if (
-        e.deltaY < 0 &&
-        Math.abs(scrollAmount) <= minScroll
-      ) {
-        if (
-          isSectionStartInView(current.element)
-        ) {
-          if (!isSectionTallerThanViewport(previous)) {
-            // console.log('previous is NOT taller than viewport')
-            alignToViewportTop(previous)
-          } else {
-            // console.log('previous is taller than viewport')
-            alignToViewportBottom(previous)
-          }
-        } else {
-          if (scrollAmount !== e.deltaY) {
-            scrollAmount = direction * minScroll
-          }
-          if (doesScrollGoBeyondElementStart(scrollAmount, current.element)) {
-            alignToViewportTop(current.element)
-          } else {
-            smoothScroll(scrollAmount)
-          }
-        }
-      } else {
-        console.log('standard behaviour')
-        e.preventDefault()
-        if (
-          direction < 0 &&
-          Math.abs(scrollAmount) > minScroll
-        ) {
-          // todo
-        }
-        const destination = findDestination(
-          direction,
-          sections,
-          current.index,
-          closest.index
-        )
-        smoothScrollTo(window.pageYOffset, destination.offsetTop)
-      }
-    }) */
-
-/* function findDestination (direction, sections, indexOfCurrent, indexOfClosest) {
-  let destination
-  if (direction > 0) {
-    destination = sections[indexOfCurrent + 1] || sections[sections.length - 1]
-  }
-  if (direction < 0) {
-    destination = indexOfCurrent === indexOfClosest
-      ? sections[indexOfClosest - 1] || sections[0]
-      : sections[indexOfCurrent] || sections[0]
-  }
-  return destination
-} */
