@@ -31,7 +31,11 @@ mobileNav()
 //stickyNav()
 
 //scrollAnimations()
+
 smoothScrollSnap()
+//window.addEventListener('wheel', () => { console.log(window.pageYOffset) })
+
+
 productGallery(500)
 //newsApp()
 //ftcpApp()
