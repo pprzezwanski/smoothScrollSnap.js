@@ -132,6 +132,17 @@ export const smoothScrollSnap = (conf = {
 
   function isDeltaYAfterMax (e) {
     if (previousDeltaY) {
+      /* return (
+        (Math.abs(e.deltaY) <= Math.abs(previousDeltaY))
+        && (Math.abs(previousDeltaY) < Math.abs(previousPreviousDeltaY))
+        && (Math.abs(previousPreviousDeltaY) < Math.abs(previousPreviousPreviousDeltaY))
+      ) */
+
+      /* return (
+        Math.abs(e.deltaY) <= Math.abs(previousDeltaYs[0])
+        && Math.abs(previousDeltaYs[0]) < Math.abs(previousDeltaYs[1])
+        && Math.abs(previousDeltaYs[1]) < Math.abs(previousDeltaYs[2])
+      ) */
 
       return (
         Math.abs(e.deltaY + previousDeltaYs[0]) < Math.abs(previousDeltaYs[1] + previousDeltaYs[2])
@@ -140,10 +151,53 @@ export const smoothScrollSnap = (conf = {
   }
 
   function isNextScrollOverlappingCurrentScroll (e) {
-    if (!(
-      previousDeltaYs[0] && previousDeltaYs[1] && previousDeltaYs[2]
-      && previousDeltaYs[3] && previousDeltaYs[4] && previousDeltaYs[5]
-    )) return
+    if (!(previousDeltaYs[0] && previousDeltaYs[1] && previousDeltaYs[2])) return
+
+    /* console.log(`${Math.abs(e.deltaY)}, ${Math.abs(previousDeltaYs[0])}, ${Math.abs(previousDeltaYs[1])}, ${Math.abs(previousDeltaYs[2])}, ${Math.abs(previousDeltaYs[3])}, ${Math.abs(previousDeltaYs[4])}, ${Math.abs(previousDeltaYs[5])},  `)
+
+    console.log(Math.abs(e.deltaY) - Math.abs(previousDeltaYs[0]) >= 10)
+    console.log(Math.abs(previousDeltaYs[0]) < Math.abs(previousDeltaYs[1]))
+    console.log(Math.abs(previousDeltaYs[0]) === Math.abs(previousDeltaYs[1]))
+    console.log(Math.abs(previousDeltaYs[1]) < Math.abs(previousDeltaYs[2]))
+    console.log(Math.abs(previousDeltaYs[1]) === Math.abs(previousDeltaYs[2]))
+
+    if (
+      Math.abs(e.deltaY) - Math.abs(previousDeltaYs[0]) >= 10
+      && (
+        Math.abs(previousDeltaYs[0]) < Math.abs(previousDeltaYs[1]) 
+        || Math.abs(previousDeltaYs[0]) === Math.abs(previousDeltaYs[1])
+      )
+      && (
+        Math.abs(previousDeltaYs[1]) < Math.abs(previousDeltaYs[2]) 
+        || Math.abs(previousDeltaYs[1]) === Math.abs(previousDeltaYs[2])
+      )
+    ) console.log('first conditions!!!!!!!!!!!!!!!!')
+
+    console.log(',,,,,,,,,,,,,,,')
+
+    if (!(previousDeltaYs[3] && previousDeltaYs[4] && previousDeltaYs[5])) return
+
+    console.log(Math.abs(previousDeltaYs[1]) - Math.abs(previousDeltaYs[2]) < 10)
+    console.log(Math.abs(e.deltaY + previousDeltaYs[0]) > Math.abs(previousDeltaYs[1] + previousDeltaYs[2]))
+    console.log(Math.abs(previousDeltaYs[2] + previousDeltaYs[3]) < Math.abs(previousDeltaYs[4] + previousDeltaYs[5]))
+    console.log(Math.abs(previousDeltaYs[2]) === Math.abs(previousDeltaYs[3]) 
+      && Math.abs(previousDeltaYs[3]) === Math.abs(previousDeltaYs[4])
+      && Math.abs(previousDeltaYs[4]) === Math.abs(previousDeltaYs[5])
+    )
+
+    if (
+      previousDeltaYs[3] && previousDeltaYs[4] && previousDeltaYs[5]
+      && Math.abs(previousDeltaYs[1]) - Math.abs(previousDeltaYs[2]) < 10
+      && Math.abs(e.deltaY + previousDeltaYs[0]) > Math.abs(previousDeltaYs[1] + previousDeltaYs[2])
+      && (
+        Math.abs(previousDeltaYs[2] + previousDeltaYs[3]) < Math.abs(previousDeltaYs[4] + previousDeltaYs[5])
+        || (
+          Math.abs(previousDeltaYs[2]) === Math.abs(previousDeltaYs[3]) 
+          && Math.abs(previousDeltaYs[3]) === Math.abs(previousDeltaYs[4])
+          && Math.abs(previousDeltaYs[4]) === Math.abs(previousDeltaYs[5])
+        )
+      )
+    ) console.log('second condition!!!!!!!!!!!!!!!!') */
 
     return (
       (
@@ -271,6 +325,7 @@ export const smoothScrollSnap = (conf = {
     previousPreviousDeltaY = null
     previousDeltaYs = [null, null, null, null, null, null]
     appleBlock = false
+    console.log('APPLE RESET -----------')
   }
 
   function scrollDecisions (e, scrollAmount) {
@@ -281,41 +336,58 @@ export const smoothScrollSnap = (conf = {
     const next = nextSection(current, sections)
     const direction = findDirection(e, current.element)
 
+    console.log('current')
+    console.log(current)
+    console.log('previous')
+    console.log(previous)
+    console.log('scroll decisions')
+
     if (Math.abs(scrollAmount) < minDeltaY) {
+      console.log(`scrollAmount = minDeltaY: ${minDeltaY * direction}`)
       scrollAmount = minDeltaY * direction
     }
     if (e.deltaY > 0 &&
       !isSectionEndInView(current.element) &&
       Math.abs(scrollAmount) <= minScroll
     ) {
+      console.log('e.deltaY > 0 && !isSectionEndInView(current.element) && Math.abs(scrollAmount) <= minScroll')
       if (scrollAmount !== minDeltaY) {
+        console.log(`scrollAmount = minScroll: ${minScroll * direction}`)
         scrollAmount = direction * minScroll
       }
       if (doesScrollGoBeyondHtmlEl(scrollAmount, current.element)) {
+        console.log('alignToViewportBottom(current.element)')
         alignToViewportBottom(current.element)
       } else {
+        console.log('smoothScroll(scrollAmount)')
         smoothScroll(scrollAmount)
       }
     } else if (
       e.deltaY < 0 &&
       Math.abs(scrollAmount) <= minScroll
     ) {
+      console.log('e.deltaY < 0 && Math.abs(scrollAmount) <= minScroll')
       if (
         isSectionStartInView(current.element)
       ) {
         if (!isSectionTallerThanViewport(previous)) {
+          console.log('alignToViewportTop(previous)')
           alignToViewportTop(previous)
         } else {
+          console.log('alignToViewportBottom(previous)')
           alignToViewportBottom(previous)
         }
       } else {
         if (doesScrollGoBeyondElementStart(scrollAmount, current.element)) {
+          console.log('alignToViewportTop(current)')
           alignToViewportTop(current.element)
         } else {
+          console.log('smoothScroll(scrollAmount)')
           smoothScroll(scrollAmount)
         }
       }
     } else {
+      console.log('total else')
       e.preventDefault()
       if (!direction) { return false }
       const target = direction > 0 ? next : previous
@@ -329,11 +401,18 @@ export const smoothScrollSnap = (conf = {
       return e.target.classList.contains(exc.replace('.', ''))
     })) { return false }
 
+    console.log(`e.deltaY: ${e.deltaY}`)
+    //console.log(`previousDeltaY: ${previousDeltaY}`)
+    //console.log(`previousPreviousDeltaY: ${previousPreviousDeltaY}`)
+
     if (hasDirectionChanged(e)) appleReset()
 
     if (isNextScrollOverlappingCurrentScroll(e)) {
+      console.log('.................................. ')
+      console.log('NEXT SCROLL OVERLAPPING')
       appleReset()
       appleScroll = true
+      console.log('APPLE SCROLL')
     }
 
     /* if (appleScroll && 
@@ -345,11 +424,13 @@ export const smoothScrollSnap = (conf = {
     } */
 
     if (
+      //(Math.abs(e.deltaY) === 1 || Math.abs(e.deltaY) === 2)
       Math.abs(e.deltaY) <= 4
       && !previousDeltaY
     ) 
     {
       appleScroll = true
+      console.log('APPLE SCROLL')
     }
 
     clearTimeout(appleTimeout)
@@ -360,10 +441,18 @@ export const smoothScrollSnap = (conf = {
       if (!isDeltaYAfterMax(e)) {
         appleTotalScroll += e.deltaY
       } else {
+        console.log('AFTER MAX ---------------------')
+        console.log('previousPreviousDeltaY + previousDeltaY + e.deltaY)')
+        console.log(previousPreviousPreviousDeltaY + previousPreviousDeltaY + previousDeltaY + e.deltaY)
+        console.log('previousDeltaYs[0] + previousDeltaYs[1] + previousDeltaYs[2] + e.deltaY')
+        console.log(previousDeltaYs[0] + previousDeltaYs[1] + previousDeltaYs[2] + e.deltaY)
+        /* console.log('appleTotalScroll')
+        console.log(appleTotalScroll) */
         //scrollDecisions(e, appleTotalScroll)
         let appleScrollSum = previousPreviousPreviousDeltaY + previousPreviousDeltaY + previousDeltaY + e.deltaY
         //let appleScrollSum = previousDeltaYs[0] + previousDeltaYs[1] + previousDeltaYs[2] + e.deltaY
         if (isNextScrollOverlappingCurrentScroll(e) && Math.abs(appleScrollSum) < minScroll) {
+          console.log('appleScrollSum set to minScroll because it was less')
           appleScrollSum = viewportHeight /* minScroll */ 
         }
         scrollDecisions(e, appleScrollSum)
@@ -389,6 +478,22 @@ export const smoothScrollSnap = (conf = {
     previousDeltaYs[2] = previousDeltaYs[1]
     previousDeltaYs[1] = previousDeltaYs[0]
     previousDeltaYs[0] = e.deltaY
+    //console.log(previousDeltaYs)
+    /* previousDeltaYs
+      .reverse()
+      .map((d, i) => { 
+        console.log(previousDeltaYs)
+        console.log(i)
+        console.log(d)
+        console.log(previousDeltaYs[i + 1])
+        return previousDeltaYs[i + 1] || e.deltaY 
+      })
+      .reverse() */
+
+
+    //console.log(previousDeltaYs)
+    
+    //console.log(`--------------`)
   }
 
   window.addEventListener('wheel', main)
