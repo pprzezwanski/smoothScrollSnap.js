@@ -1,6 +1,5 @@
-import { onWindowChange, qs, qsAll, scrollTo, EventObserver } from './helpers'
-
-import { animate, animateV, timeflow, timings } from './animate'
+import { onWindowChange, qsAll } from './helpers'
+import { animateV, timings } from './animate'
 
 /**
  * sets smooth page scroll behaviour that scrolls
@@ -16,7 +15,7 @@ export const smoothScrollSnap = (conf = {
 }) => {
   const sections = conf.selectors
     ? [...qsAll(`${conf.selectors.join()}`)]
-    : [...qsAll('section, nav, header')]
+    : [...qsAll('section, body > nav, header')]
   const exclude = conf.exclude || []
   const alignmentAberration = 5
   let totalScroll = 0
@@ -26,7 +25,6 @@ export const smoothScrollSnap = (conf = {
   let previousPreviousDeltaY = null
   let previousPreviousPreviousDeltaY = null
 
-  //const previousDeltaYs = [0, 0, 0, 0, 0, 0]
   let previousDeltaYs = [null, null, null, null, null, null]
 
   let appleScroll = false
@@ -35,7 +33,8 @@ export const smoothScrollSnap = (conf = {
   let appleTimeout
 
   let viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
-  let minScroll = 1 / 2 * viewportHeight - 1 / 2 * (viewportHeight / 900 - 1)
+  //let minScroll = 1 / 2 * viewportHeight - 1 / 2 * (viewportHeight / 900 - 1)
+  let minScroll = 1 / 3 * viewportHeight - 1 / 3 * (viewportHeight / 900 - 1)
   const minDeltaY = 60
 
   onWindowChange(() => {
@@ -288,7 +287,7 @@ export const smoothScrollSnap = (conf = {
       !isSectionEndInView(current.element) &&
       Math.abs(scrollAmount) <= minScroll
     ) {
-      if (scrollAmount !== minDeltaY) {
+      if (scrollAmount === minDeltaY) {
         scrollAmount = direction * minScroll
       }
       if (doesScrollGoBeyondHtmlEl(scrollAmount, current.element)) {
@@ -324,11 +323,13 @@ export const smoothScrollSnap = (conf = {
   }
 
   function main (e) {
-    e.preventDefault()
     if (exclude.find(exc => {
       return e.target.classList.contains(exc.replace('.', ''))
-    })) { return false }
-
+    })) {
+      return false
+    }
+    e.preventDefault()
+    
     if (hasDirectionChanged(e)) appleReset()
 
     if (isNextScrollOverlappingCurrentScroll(e)) {
