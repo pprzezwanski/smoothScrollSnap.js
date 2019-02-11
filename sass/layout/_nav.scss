@@ -18,7 +18,7 @@
 
   .logo {
     position: relative;
-    width: 163px;
+    // width: 163px;
     height: 1em;
     font-size: 3.3rem;
 
@@ -36,7 +36,7 @@
       font-family: "GT-America", sans-serif;
       font-weight: bold;
       font-size: 3.3rem;
-      background: linear-gradient(to right, $color-red, $color-pink);
+      background: linear-gradient(to right, navy, $color-pink);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       padding: 0;
@@ -84,7 +84,7 @@
       font-family: "GT-America", sans-serif;
       font-size: 1.6rem;
       text-align: center;
-      color: $color-grey-1;
+      color: $color-black;
 
       @include respond(phone) {
         width: 100%;
@@ -104,12 +104,10 @@
         text-align: center;
         transition: all .3;
       }
-
-      
   
       a:link,
       a:visited {
-        color: $color-grey-1;
+        color: $color-black;
 
        @include respond(phone) {
         text-align: left;
@@ -120,7 +118,7 @@
 
       a:hover,
       a:active {
-        background-image: linear-gradient(to right, $color-red, $color-pink);
+        background-image: linear-gradient(to right, navy, $color-pink);
         color: white;
       }
     }

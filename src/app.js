@@ -16,7 +16,7 @@ import { onWindowChange } from './helpers'
 //import { scrollAnimations } from './scrollAnimations'
 import { smoothScrollSnap } from './smoothScrollSnap-experiments'
 //import { smoothScrollSnap } from './smoothScrollSnap'
-import { productGallery } from './productGallery'
+// import { productGallery } from './productGallery'
 //import { newsApp } from './newsApp'
 //import { ftcpApp } from './ftcpApp'
 
@@ -36,7 +36,7 @@ smoothScrollSnap()
 //window.addEventListener('wheel', () => { console.log(window.pageYOffset) })
 
 
-productGallery(500)
+// productGallery(500)
 //newsApp()
 //ftcpApp()
 //animations()

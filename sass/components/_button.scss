@@ -7,7 +7,7 @@
   line-height: 1.4em;
 
   &-gradient {
-    background-image: linear-gradient(to right, $color-red, $color-pink);
+    background-image: linear-gradient(to right, green, $color-pink);
     color: white;
   }
 
@@ -20,5 +20,4 @@
     background-color: $color-red;
     color: white;
   }
-
 }
