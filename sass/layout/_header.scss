@@ -56,7 +56,6 @@
   &__h1 {
     display: block;
     width: 60%;
-    min-width: 828px;
     height: auto;
     color: #ffffff;
     margin: 0;
@@ -69,9 +68,12 @@
     @include respond(phone) {
       margin-top: 79px;
       font-size: 36px;
-      line-height: 44px;
-      min-width: unset;
       width: 90%;
+    }
+    
+    @include respond(tab-port) {
+      font-size: 40px;
+      line-height: 44px;
     }
 
     & span {
