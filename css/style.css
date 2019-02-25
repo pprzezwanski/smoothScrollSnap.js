@@ -220,7 +220,6 @@ a {
   .header__h1 {
     display: block;
     width: 60%;
-    min-width: 828px;
     height: auto;
     color: #ffffff;
     margin: 0;
@@ -233,9 +232,11 @@ a {
       .header__h1 {
         margin-top: 79px;
         font-size: 36px;
-        line-height: 44px;
-        min-width: unset;
         width: 90%; } }
+    @media (max-width: 60em) {
+      .header__h1 {
+        font-size: 40px;
+        line-height: 44px; } }
     .header__h1 span {
       position: relative;
       border-color: #EF3B3B;
