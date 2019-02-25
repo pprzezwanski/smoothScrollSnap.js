@@ -180,10 +180,8 @@ a {
 .header {
   position: relative;
   width: 100%;
-  height: calc(127rem * 55 / 100);
-  min-height: 600px;
   margin: 0 auto;
-  padding-top: 11.5vw;
+  padding: 10rem 0;
   overflow-y: visible;
   z-index: 2;
   background-color: #0a0016; }
