@@ -1,5 +1,5 @@
 {
-  "name": "feedvisor",
+  "name": "smooth-scroll-snap",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -20,7 +20,7 @@
   ],
   "author": "Pawel Przezwanski",
   "license": "UNLICENSED",
-  "description": "a website with an awesome app -  Filtered Tagged Catalog Player ",
+  "description": "intelligentyl snapping to sections and viewport page scrolling plugin",
   "devDependencies": {
     "autoprefixer": "^8.2.0",
     "babel-cli": "latest",
@@ -59,10 +59,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/raonone/task.git"
+    "url": "git+https://github.com/pprzezwanski/task.git"
   },
   "bugs": {
-    "url": "https://github.com/raonone/task/issues"
+    "url": "https://github.com/pprzezwanski/task/issues"
   },
-  "homepage": "https://github.com/raonone/task#readme"
+  "homepage": "https://github.com/pprzezwanski/task#readme"
 }
