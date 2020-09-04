@@ -39,7 +39,7 @@
     "imagemin-cli": "latest",
     "mini-css-extract-plugin": "^0.4.0",
     "mysql": "latest",
-    "node-sass": "^4.9.2",
+    "node-sass": "^4.13.1",
     "npm-run-all": "latest",
     "postcss-cli": "latest",
     "postcss-loader": "^2.1.3",
